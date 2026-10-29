@@ -6,68 +6,134 @@
     <title>Bem Vindo!</title>
     
     <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     
 </head>
 <body>
     <main class="container">
         <h1>Cadastro de Produtos</h1>
-        <form action="#" method="post">
+        <form action="#" method="post" id="cadastroproduto">
             
             <div class="row">
                 
                 <div class="form-field col-6">
                     <label for="nome" class="form-label">Nome</label>
-                    <input type="text" name="nome" id="nome" class="form-control" >
+                    <input type="text" name="nome" id="nome" class="form-control" required >
                 </div>
                 
                 <div class="form-field col-6">
                     <label for="valor" class="form-label">Valor</label>
-                    <input type="number" class="form-control" name="valor" id="valor" placeholder="0.00">
+                    <input type="number" class="form-control" name="valor" id="valor" placeholder="0.00" required>
                 </div>
             </div>
-            <div class="row">
 
+            <div class="row">
+                
                 <div class="col">
-                esta é uma coluna
+                    esta é uma coluna
                 </div>
                 <div class="col">
                     esta é a segunda coluna
                 </div>
-            </div>
 
+            </div>
 
             <br>
             <div class="row">
                 <div class="btn-group botoes col-12">
-                    <button type="button" class="btn-solid theme-primary ">Adicionar</button>
-                    
+                    <button type="submit" class="btn-solid theme-primary" id="botaoSubmit">Adicionar</button>
                 </div>
             </div>
         </form>
         <br>
+
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Valor</th>
+                    <th scope="col">editar</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                </tr> -->
+            
+            <tbody id="conteudo-tabela">
             </tbody>
+
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>valor total: <span> </span></td>
+                </tr>
+            </tfoot>
+
         </table>
+        
         <br>
+
+        <div id="produtoscapturados"></div>
+
         <div class="row">
             <div class="text-end">
-                Valor total: <span c></span>
+                Valor total: <span></span>
             </div>
         </div>
     </main>
+
+    <script> 
+    let form = document.querySelector('#cadastroproduto')
+        form.addEventListener('submit', function(event){
+        event.preventDefault()
+        // nao submeta
+
+        console.log(event)
+        // chama a outra 
+        capturaFormulario(event)
+        
+    
+    })
+
+        let botaoSubmit = document.querySelector('#botaoSubmit')
+        botaoSubmit.addEventListener('mouseover', function(){
+        console.log('oi')
+
+})
+
+
+        function capturaFormulario(event) {
+            event.preventDefault()
+            let nome = document.querySelector('#nome');
+            let valor = document.querySelector('#valor');
+            let tbody = document.querySelector('#conteudo-tabela');
+
+            let produto = {
+                nome: nome.value,
+                valor: valor.value
+            };
+            
+            let tr = document.createElement('tr');
+            let tdID = document.createElement('td');
+            let tdNome = document.createElement('td');
+            let tdValor = document.createElement('td');
+            let tdeditar = document.createElement('td');
+            
+            tdID.textContent = produto.id;
+            tdNome.textContent = produto.nome;
+            tdValor.textContent = produto.valor;
+            tdeditar.textContent = 'Alterar - Remover' 
+
+            tr.append(tdID);
+            tr.append(tdNome);
+            tr.append(tdValor);
+            tr.append(tdeditar)
+
+            tbody.append(tr);
+
+
+            console.log(produto);
+
+        } 
+    </script>
 </body>
 </html>
